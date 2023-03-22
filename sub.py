@@ -1,11 +1,13 @@
 from paho.mqtt import client as mqtt_client
 import random
+import argparse
 
-#broker = '172.20.10.4'
-broker = '192.168.0.139'
+'''
+broker = '172.20.10.4'
 port = 1883
 topic = "ai_toy/detected"
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
+'''
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
@@ -36,4 +38,11 @@ def run():
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="mqtt sub.py")
+    parser.add_argument("-i", "--ipaddress", action="store", dest="ipaddress", default='172.20.10.4')
+    arg = parser.parse_args()
+    broker = arg.ipaddress
+    port = 1883
+    topic = "ai_toy/detected"
+    client_id = f'python-mqtt-{random.randint(0, 1000)}'
     run()
